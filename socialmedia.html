@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Sosial dan Bergabung dengan Grup</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const filterDropdown = document.getElementById("filterDropdown");
+      const socialCards = document.querySelectorAll('.social-card');
+      const groupCards = document.querySelectorAll('.group-card');
+      const aboutSection = document.getElementById('aboutSection');
+      const cardsSection = document.getElementById('cardsSection');
+
+      // Sembunyikan semua kartu awalnya
+      socialCards.forEach(card => card.classList.add('hidden'));
+      groupCards.forEach(card => card.classList.add('hidden'));
+
+      // Tampilkan bagian kartu saat dropdown berubah
+      filterDropdown.addEventListener("change", function() {
+        const selection = this.value;
+
+        // Reset visibilitas
+        socialCards.forEach(card => {
+          card.classList.add('hidden');
+          card.classList.remove('show');
+        });
+        groupCards.forEach(card => {
+          card.classList.add('hidden');
+          card.classList.remove('show');
+        });
+
+        // Sembunyikan bagian tentang dan tampilkan bagian kartu
+        aboutSection.classList.add('hidden');
+        cardsSection.classList.remove('hidden');
+
+        if (selection === 'all') {
+          socialCards.forEach((card, index) => {
+            card.classList.remove('hidden');
+            setTimeout(() => {
+              card.classList.add('show');
+            }, index * 150); // animasi terstagger untuk kartu sosial
+          });
+          groupCards.forEach((card, index) => {
+            card.classList.remove('hidden');
+            setTimeout(() => {
+              card.classList.add('show');
+            }, (index + socialCards.length) * 150); // animasi terstagger untuk kartu grup
+          });
+        } else if (selection === 'social') {
+          socialCards.forEach((card, index) => {
+            card.classList.remove('hidden');
+            setTimeout(() => {
+              card.classList.add('show');
+            }, index * 150); // animasi terstagger untuk kartu sosial
+          });
+        } else if (selection === 'group') {
+          groupCards.forEach((card, index) => {
+            card.classList.remove('hidden');
+            setTimeout(() => {
+              card.classList.add('show');
+            }, index * 150); // animasi terstagger untuk kartu grup
+          });
+        }
+      });
+
+      // Kembali ke bagian tentang
+      const backButtons = document.querySelectorAll('.backButton');
+      backButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          aboutSection.classList.remove('hidden');
+          cardsSection.classList.add('hidden');
+        });
+      });
+    });
+  </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen flex-col">
+
+  <!-- Bagian Tentang -->
+  <div id="aboutSection" class="bg-white shadow-lg rounded-lg p-8 text-center max-w-md">
+    <h1 class="text-2xl font-semibold text-gray-800 mb-4">Selamat datang di Hub Koneksi Kami</h1>
+    <p class="text-gray-600 mb-6">
+      Hubungi kami melalui berbagai platform media sosial atau bergabung dengan grup eksklusif kami. Gunakan dropdown di bawah ini untuk melihat opsi tertentu.
+    </p>
+    <!-- Dropdown Filter -->
+    <div class="mb-6">
+      <select id="filterDropdown" class="p-2 bg-gray-200 rounded-lg">
+        <option value="none" selected>None</option>
+        <option value="all">Tampilkan Semua</option>
+        <option value="social">Tampilkan Media Sosial</option>
+        <option value="group">Tampilkan Grup</option>
+      </select>
+    </div>
+    <div class="flex justify-center mt-4">
+      <a href="index.html" class="text-gray-500 hover:text-blue-600 transition duration-300">
+        <i class="bi bi-arrow-left text-xl"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Bagian Kartu -->
+  <div id="cardsSection" class="bg-white shadow-lg rounded-lg p-8 text-center max-w-md hidden">
+    <div class="grid gap-4">
+      <!-- Ikon Media Sosial -->
+      <div class="social-card fade-in">
+        <a href="https://www.instagram.com/az.zhrazkyh" target="_blank" class="flex items-center p-4 bg-pink-500 text-white rounded-lg shadow-md">
+          <i class="bi bi-instagram text-2xl mr-4"></i>
+          <span class="text-lg font-medium">Instagram</span>
+        </a>
+      </div>
+      <div class="social-card fade-in">
+        <a href="https://telegram.org/meidinaaftria" target="_blank" class="flex items-center p-4 bg-blue-500 text-white rounded-lg shadow-md">
+          <i class="bi bi-telegram text-2xl mr-4"></i>
+          <span class="text-lg font-medium">Telegram</span>
+        </a>
+      </div>
+      <div class="social-card fade-in">
+        <a href="https://www.tiktok.com/@ushlhay" target="_blank" class="flex items-center p-4 bg-black text-white rounded-lg shadow-md">
+          <i class="bi bi-tiktok text-2xl mr-4"></i>
+          <span class="text-lg font-medium">TikTok</span>
+        </a>
+      </div>
+      <div class="social-card fade-in">
+        <a href="https://www.threads.net/@sofiaa_aja6652" target="_blank" class="flex items-center p-4 bg-gray-900 text-white rounded-lg shadow-md">
+          <i class="bi bi-threads text-2xl mr-4"></i>
+          <span class="text-lg font-medium">Threads</span>
+        </a>
+      </div>
+      <div class="social-card fade-in">
+        <a href="https://twitter.com" target="_blank" class="flex items-center p-4 bg-blue-400 text-white rounded-lg shadow-md">
+          <i class="bi bi-twitter text-2xl mr-4"></i>
+          <span class="text-lg font-medium">X (Twitter)</span>
+        </a>
+      </div>
+
+      <!-- Ikon Grup -->
+      <div class="group-card fade-in hidden">
+        <div class="flex items-center p-4 bg-green-500 text-white rounded-lg shadow-md">
+          <a href="https://whatsapp.com/channel/0029VakcEUEJkK7Ft6SQat1Z" target="_blank" class="flex items-center w-full">
+            <i class="bi bi-whatsapp text-2xl mr-4"></i>
+            <span class="text-lg font-medium">Bergabung dengan Grup WhatsApp</span>
+          </a>
+          <button class="backButton text-gray-500 hover:text-blue-600 transition duration-300 ml-4">
+            <i class="bi bi-arrow-left text-xl"></i>
+          </button>
+        </div>
+      </div>
+      <div class="group-card fade-in hidden">
+        <div class="flex items-center p-4 bg-blue-500 text-white rounded-lg shadow-md">
+          <a href="https://t.me/jejeaaazzz/s/6" target="_blank" class="flex items-center w-full">
+            <i class="bi bi-telegram text-2xl mr-4"></i>
+            <span class="text-lg font-medium">Bergabung dengan Grup Telegram</span>
+          </a>
+          <button class="backButton text-gray-500 hover:text-blue-600 transition duration-300 ml-4">
+            <i class="bi bi-arrow-left text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
