@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 min-h-screen text-white font-sans">
+
+    <!-- Navbar -->
+    <header class="w-full py-4 bg-gray-800 bg-opacity-80 fixed top-0 left-0 z-50">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <div class="text-2xl font-bold">My Video Player</div>
+            <nav id="menu" class="hidden md:flex space-x-6">
+                <a href="#features" class="hover:text-gray-300">Features</a>
+                <a href="#about" class="hover:text-gray-300">About</a>
+                <a href="tele.html" class="hover:text-gray-300">Contact</a>
+                <a href="video.html" class="hover:text-gray-300">Video Player</a> <!-- Link to Video Player -->
+                <a href="saved-video.html" class="hover:text-gray-300">Saved Videos</a> <!-- Link to Saved Videos -->
+            </nav>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 text-center">
+        <h1 class="text-5xl font-bold mb-4 animate-pulse">Welcome to My Video Player</h1>
+        <p class="text-lg text-white text-opacity-80 mb-8">Easily upload and play your favorite videos</p>
+        <a href="#features" class="px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200">Explore Features</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="container mx-auto px-6 py-16">
+        <h2 class="text-4xl font-bold text-center mb-10">Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 bg-opacity-90 p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4">Play Any Video</h3>
+                <p class="text-gray-300">Upload and play videos in multiple formats, from any device, seamlessly.</p>
+            </div>
+            <div class="bg-gray-800 bg-opacity-90 p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4">Simple Interface</h3>
+                <p class="text-gray-300">Enjoy a user-friendly interface designed for easy navigation and accessibility.</p>
+            </div>
+            <div class="bg-gray-800 bg-opacity-90 p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4">Fast Loading</h3>
+                <p class="text-gray-300">Experience quick video loading times with optimized performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container mx-auto px-6 py-16 text-center">
+        <h2 class="text-4xl font-bold mb-6">About My Video Player</h2>
+        <p class="text-lg text-gray-300">Our video player allows you to easily upload, view, and manage your videos with seamless playback and a sleek, modern interface.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-800 bg-opacity-90 py-16 text-center">
+        <h2 class="text-4xl font-bold text-white mb-6">Get in Touch</h2>
+        <p class="text-lg text-gray-300 mb-4">Questions? Feel free to reach out!</p>
+        <a href="mailto:info@videoplayer.com" class="text-blue-400 underline">info@videoplayer.com</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 bg-gray-900 text-center text-gray-400">
+        <p>&copy; 2024 My Video Player. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle menu on mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const menu = document.getElementById('menu');
+
+        menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

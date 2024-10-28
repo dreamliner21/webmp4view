@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Gallery - Wanita Penghibur</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    /* Gaya untuk slide info */
+    #slide-info {
+      position: relative;
+      background-color: #2d3748; /* Background gelap */
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      animation: slideIn 0.5s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Menambahkan gaya untuk modal input key */
+    #key-modal {
+      z-index: 50; /* Pastikan modal tetap di atas */
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center">
+
+  <h1 class="text-3xl font-bold mb-6">Video Gallery - Wanita Penghibur</h1>
+
+  <!-- Slide Info -->
+  <div id="slide-info" class="mb-4 w-full text-center">
+    Selamat datang di galeri video wanita penghibur! Nikmati konten-konten menarik yang kami tawarkan.
+  </div>
+
+  <!-- Video Cards Container -->
+  <div id="video-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 w-full max-w-5xl mt-4">
+    <!-- Video cards will be appended here -->
+  </div>
+
+  <!-- Video Player Modal -->
+  <div id="video-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
+    <div class="bg-gray-800 p-4 rounded-lg max-w-lg w-full relative">
+      <button id="close-modal" class="absolute top-2 right-2 text-white text-2xl">
+        <i class="bi bi-x-circle-fill"></i>
+      </button>
+      <video id="modal-video-player" controls class="w-full mt-4 rounded-lg">
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <!-- Input Key Modal -->
+  <div id="key-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
+    <div class="bg-gray-800 p-4 rounded-lg max-w-lg w-full relative">
+      <h2 class="text-xl font-semibold mb-2">Masukkan Kunci untuk Melihat Video Tambahan</h2>
+      <input type="text" id="key-input" class="p-2 bg-gray-700 rounded-lg text-white w-full mb-2" placeholder="Masukkan kunci">
+      <button id="submit-key" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center justify-center">
+        <i class="bi bi-send-fill mr-2"></i> Kirim
+      </button>
+      <button id="close-key-modal" class="mt-2 text-white flex items-center justify-center">
+        <i class="bi bi-x-circle mr-1"></i> Batal
+      </button>
+    </div>
+  </div>
+  
+  <!-- Telegram Link -->
+  <div class="mt-8">
+  <a href="https://tele.dreamliner21.xyz/" target="_blank" class="text-blue-500 flex items-center hover:text-blue-300"> 
+    <i class="bi bi-telegram mr-2"></i>chat with us
+</a>
+</div>
+
+  <script>
+  const videoCardsContainer = document.getElementById('video-cards');
+  const videoModal = document.getElementById('video-modal');
+  const modalVideoPlayer = document.getElementById('modal-video-player');
+  const closeModalButton = document.getElementById('close-modal');
+  const keyModal = document.getElementById('key-modal');
+  const keyInput = document.getElementById('key-input');
+  const submitKeyButton = document.getElementById('submit-key');
+  const closeKeyModalButton = document.getElementById('close-key-modal');
+  const correctKey = "fufufafa"; // Kunci yang benar
+
+  let billawwVideos = []; // Untuk menyimpan video billaww
+
+  // Fetch video data from JSON
+  fetch('videos.json')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(person => {
+        const card = document.createElement('div');
+        card.classList.add('bg-gray-800', 'p-4', 'rounded-lg', 'shadow-lg', 'text-center', 'cursor-pointer', 'hover:bg-gray-700', 'transition');
+
+        // Cek jika ada elemen Instagram
+        let instagramLink = '';
+        if (person.instagram) {
+          instagramLink = `
+            <a href="${person.instagram}" target="_blank" class="text-pink-500 flex items-center justify-center mb-2">
+              <i class="bi bi-instagram mr-1"></i> Instagram
+            </a>
+          `;
+        }
+
+        if (person.name.toLowerCase() === 'billaww') {
+          billawwVideos = person.videos; 
+          const videosToShow = billawwVideos.slice(0, 9);
+          card.innerHTML = `
+            <h2 class="text-xl font-semibold mb-2">${person.name}</h2>
+            ${instagramLink} <!-- Tambahkan ikon Instagram jika ada -->
+            <select class="video-select p-2 bg-gray-700 rounded-lg text-white">
+              <option value="" selected disabled>Pilih Video</option>
+              ${videosToShow.map((url, index) => `<option value="${url}">Video ${index + 1}</option>`).join('')}
+              <option value="additional" class="bg-gray-700 text-white">Video Tambahan (Masukkan Kunci)</option>
+            </select>
+          `;
+        } else {
+          card.innerHTML = `
+            <h2 class="text-xl font-semibold mb-2">${person.name}</h2>
+            ${instagramLink} <!-- Tambahkan ikon Instagram jika ada -->
+            <select class="video-select p-2 bg-gray-700 rounded-lg text-white">
+              <option value="" selected disabled>Pilih Video</option>
+              ${person.videos.map((url, index) => `<option value="${url}">Video ${index + 1}</option>`).join('')}
+            </select>
+          `;
+        }
+
+        const select = card.querySelector('.video-select');
+        select.addEventListener('change', (event) => {
+          const selectedUrl = event.target.value;
+          if (selectedUrl === "additional") {
+            keyModal.classList.remove('hidden');
+          } else if (selectedUrl) {
+            modalVideoPlayer.src = selectedUrl;
+            videoModal.classList.remove('hidden');
+            modalVideoPlayer.play();
+          }
+        });
+
+        videoCardsContainer.appendChild(card);
+      });
+    })
+    .catch(error => console.error('Error fetching video data:', error));
+
+  closeModalButton.addEventListener('click', () => {
+    videoModal.classList.add('hidden');
+    modalVideoPlayer.pause();
+    modalVideoPlayer.src = "";
+  });
+
+  submitKeyButton.addEventListener('click', () => {
+    const enteredKey = keyInput.value;
+    if (enteredKey === correctKey) {
+      alert('Kunci benar! Anda sekarang dapat melihat semua video.');
+      const videoSelects = document.querySelectorAll('.video-select');
+      videoSelects.forEach(select => {
+        if (select.previousElementSibling.textContent === "billaww") {
+          select.innerHTML = `
+            <option value="" selected disabled>Pilih Video</option>
+            ${billawwVideos.map((url, index) => `<option value="${url}">Video ${index + 1}</option>`).join('')}
+          `;
+        }
+      });
+    } else {
+      alert('Kunci salah! Silakan coba lagi.');
+    }
+    keyModal.classList.add('hidden');
+    keyInput.value = "";
+  });
+
+  closeKeyModalButton.addEventListener('click', () => {
+    keyModal.classList.add('hidden');
+    keyInput.value = "";
+  });
+</script>
+</body>
+</html>
